@@ -25,6 +25,9 @@ dependencies:
     version: 7.5.3(react-dom@0.0.0-experimental-0038c501-20250429)(react@0.0.0-experimental-0038c501-20250429)
 
 devDependencies:
+  '@netlify/vite-plugin-react-router':
+    specifier: ^1.0.1
+    version: 1.0.1(react-dom@0.0.0-experimental-0038c501-20250429)(react@0.0.0-experimental-0038c501-20250429)(typescript@5.8.3)(vite@6.3.3)
   '@react-router/dev':
     specifier: ^7.5.3
     version: 7.5.3(@react-router/serve@7.5.3)(@types/node@20.17.32)(react-router@7.5.3)(typescript@5.8.3)(vite@6.3.3)
@@ -624,6 +627,22 @@ packages:
 
   /@mjackson/node-fetch-server@0.2.0:
     resolution: {integrity: sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==}
+
+  /@netlify/vite-plugin-react-router@1.0.1(react-dom@0.0.0-experimental-0038c501-20250429)(react@0.0.0-experimental-0038c501-20250429)(typescript@5.8.3)(vite@6.3.3):
+    resolution: {integrity: sha512-JE32RJ6PamX6Yf2yyys7NLaKK4ppcDwuL6mk7NDZ7rt4EWUm+5bz/YjMcLz9uXyo1jDPlWjaUcqRC2MUZKt2DA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      vite: '>=5.0.0'
+    dependencies:
+      '@react-router/node': 7.5.3(react-router@7.5.3)(typescript@5.8.3)
+      isbot: 5.1.27
+      react-router: 7.5.3(react-dom@0.0.0-experimental-0038c501-20250429)(react@0.0.0-experimental-0038c501-20250429)
+      vite: 6.3.3(@types/node@20.17.32)
+    transitivePeerDependencies:
+      - react
+      - react-dom
+      - typescript
+    dev: true
 
   /@npmcli/git@4.1.0:
     resolution: {integrity: sha512-9hwoB3gStVfa0N31ymBmrX+GuDGdVA/QWShZVqE0HK2Af+7QGGrCTbZia/SW0ImUTjTne7SP91qxDmtXvDHRPQ==}
@@ -1696,7 +1715,6 @@ packages:
   /isbot@5.1.27:
     resolution: {integrity: sha512-V3W56Hnztt4Wdh3VUlAMbdNicX/tOM38eChW3a2ixP6KEBJAeehxzYzTD59JrU5NCTgBZwRt9lRWr8D7eMZVYQ==}
     engines: {node: '>=18'}
-    dev: false
 
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
