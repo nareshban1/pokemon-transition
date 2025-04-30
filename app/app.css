@@ -16,3 +16,35 @@ body {
 ::view-transition-new(.slow-fade) {
   animation-duration: 500ms;
 }
+
+/* Simple 3D HUD Effect Styles */
+.perspective-1000 {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.rotate-y-15 {
+  transform: rotateY(15deg);
+}
+
+.-rotate-y-15 {
+  transform: rotateY(-15deg);
+}
+
+.translate-z-6 {
+  transform: translateZ(6px);
+}
+
+.pokemon-panel {
+  transition: transform 0.3s ease;
+  backface-visibility: hidden;
+}
+
+.pokemon-panel:hover {
+  transform: scale(1.02);
+}
+
+.pokemon-image-container {
+  position: relative;
+  z-index: 10;
+}

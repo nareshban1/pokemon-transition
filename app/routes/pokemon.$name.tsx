@@ -44,9 +44,8 @@ export default function PokemonDetail() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row justify-between mb-6 items-center">
-        <h1 className="text-2xl font-bold capitalize mb-4 md:mb-0">
-          {pokemon.name}
-        </h1>
+        <div className="text-xl font-bold">#{pokemon.id}</div>
+
         <Link
           to="/"
           className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded"
@@ -55,24 +54,48 @@ export default function PokemonDetail() {
         </Link>
       </div>
 
-      <div className="bg-white overflow-hidden ">
-        <div className={` p-8 flex justify-center`}>
-          <ViewTransition name={`pokemon-${pokemon.name}`}>
-            <img
-              src={
-                pokemon.sprites.other["official-artwork"].front_default ||
-                pokemon.sprites.front_default
-              }
-              alt={pokemon.name}
-              className="w-48 h-48 md:w-96 md:h-96 object-contain drop-shadow-lg"
-            />
-          </ViewTransition>
+      <div className="bg-white  p-4 relative ">
+        {/* Pokemon ID and Types */}
+        <div className="flex items-center justify-center flex-wrap gap-4 mb-6">
+          <h1 className="text-2xl font-bold capitalize mb-4 md:mb-0">
+            {pokemon.name}
+          </h1>
         </div>
 
-        <div className="p-4 md:p-6 border rounded shadow-2xl">
-          <div className="flex items-center flex-wrap gap-4 mb-6">
-            <div className="text-xl font-bold">#{pokemon.id}</div>
-            <div className="flex flex-wrap gap-2">
+        {/* Main content with simplified 3D layout */}
+        <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center perspective-1000">
+          {/* Left Column - Basic Info & Abilities */}
+          <div className="pokemon-panel w-full md:w-1/3 order-2 md:order-1 transform rotate-y-45 md:translate-x-4 bg-white p-5 rounded-lg shadow-md border border-gray-200">
+            <div className="mb-8">
+              <h2 className="text-base md:text-lg font-bold mb-4 border-b  pb-2 text-gray-700">
+                Basic Info
+              </h2>
+              <div className="grid grid-cols-2 gap-y-4 text-sm">
+                <div className="font-semibold">Height:</div>
+                <div>{pokemon.height / 10} m</div>
+                <div className="font-semibold">Weight:</div>
+                <div>{pokemon.weight / 10} kg</div>
+                <div className="font-semibold">Base XP:</div>
+                <div>{pokemon.base_experience}</div>
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-base md:text-lg font-bold mb-4 border-b border-gray-200 pb-2 text-gray-700">
+                Abilities
+              </h2>
+              <div className="flex flex-col gap-2">
+                {pokemon.abilities.map((ability) => (
+                  <span
+                    key={ability.ability.name}
+                    className="bg-gray-50 px-3 py-2 rounded text-sm capitalize border border-gray-200"
+                  >
+                    {ability.ability.name} {ability.is_hidden && "(Hidden)"}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-4">
               {pokemon.types.map((type) => (
                 <span
                   key={type.type.name}
@@ -86,63 +109,48 @@ export default function PokemonDetail() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h2 className="text-base md:text-lg font-bold mb-4 border-b-2 pb-2">
-                Basic Info
-              </h2>
-              <div className="grid grid-cols-2 gap-y-4 text-xs">
-                <div className="font-semibold">Height:</div>
-                <div>{pokemon.height / 10} m</div>
-                <div className="font-semibold">Weight:</div>
-                <div>{pokemon.weight / 10} kg</div>
-                <div className="font-semibold">Base XP:</div>
-                <div>{pokemon.base_experience}</div>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-base md:text-lg font-bold mb-4 border-b-2 pb-2">
-                Stats
-              </h2>
-              <div className="space-y-4">
-                {pokemon.stats.map((stat) => (
-                  <div key={stat.stat.name} className="mb-3">
-                    <div className="flex justify-between mb-1">
-                      <span className="font-semibold capitalize text-xs">
-                        {stat.stat.name}:
-                      </span>
-                      <span className="text-xs">{stat.base_stat}</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div
-                        className="bg-blue-600 h-2.5 rounded-full"
-                        style={{
-                          width: `${Math.min(
-                            100,
-                            (stat.base_stat / 255) * 100
-                          )}%`,
-                        }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+          {/* Center Column - Pokemon Image */}
+          <div className="pokemon-image-container w-full md:w-1/3 order-1 md:order-2 flex flex-col items-center justify-center z-10">
+            <div className="relative p-4">
+              <ViewTransition name={`pokemon-${pokemon.name}`}>
+                <img
+                  src={
+                    pokemon.sprites.other["official-artwork"].front_default ||
+                    pokemon.sprites.front_default
+                  }
+                  alt={pokemon.name}
+                  className="w-64 h-64 md:w-[500px] md:h-[500px] object-contain"
+                />
+              </ViewTransition>
             </div>
           </div>
 
-          <div className="mt-8">
-            <h2 className="text-base md:text-lg font-bold mb-4 border-b-2 pb-2">
-              Abilities
+          {/* Right Column - Stats */}
+          <div className="pokemon-panel w-full md:w-1/3 order-3 transform -rotate-y-45 md:-translate-x-4 bg-white p-5 rounded-lg shadow-md border border-gray-200">
+            <h2 className="text-base md:text-lg font-bold mb-4 border-b border-gray-200 pb-2 text-gray-700">
+              Stats
             </h2>
-            <div className="flex flex-wrap gap-2">
-              {pokemon.abilities.map((ability) => (
-                <span
-                  key={ability.ability.name}
-                  className="bg-gray-100 px-3 py-1 rounded-full text-[0.6rem] capitalize"
-                >
-                  {ability.ability.name} {ability.is_hidden && "(Hidden)"}
-                </span>
+            <div className="space-y-6">
+              {pokemon.stats.map((stat) => (
+                <div key={stat.stat.name} className="mb-3">
+                  <div className="flex justify-between mb-1">
+                    <span className="font-semibold capitalize text-sm">
+                      {stat.stat.name}:
+                    </span>
+                    <span className="text-sm">{stat.base_stat}</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded h-5 overflow-hidden">
+                    <div
+                      className="bg-blue-500 h-5"
+                      style={{
+                        width: `${Math.min(
+                          100,
+                          (stat.base_stat / 255) * 100
+                        )}%`,
+                      }}
+                    ></div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
