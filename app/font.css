@@ -1,0 +1,51 @@
+/* Import Press Start 2P font from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+/* Define font family variables for use throughout the app */
+:root {
+  --font-press-start: "Press Start 2P", cursive;
+}
+
+/* Apply Press Start 2P font globally */
+body {
+  font-family: var(--font-press-start);
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+/* Adjust sizes for better readability with pixel font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.4;
+}
+
+/* Use smaller font sizes for this pixel font to improve readability */
+h1 {
+  font-size: 1.6rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+}
+
+h3,
+h4 {
+  font-size: 1rem;
+}
+
+p,
+span,
+div {
+  font-size: 0.8rem;
+}
+
+/* Adjust buttons and small text */
+button,
+.text-xs,
+.text-sm {
+  font-size: 0.6rem;
+}
