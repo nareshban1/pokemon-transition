@@ -98,7 +98,7 @@ export default function PokemonDetail() {
         {/* Main content with simplified 3D layout */}
         <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center perspective-1000">
           {/* Left Column - Basic Info & Abilities */}
-          <div className="pokemon-panel w-full md:w-1/3 order-2 md:order-1 transform rotate-y-45 md:translate-x-4 bg-transparent p-5">
+          <div className="pokemon-panel w-full md:w-1/3 order-2 md:order-1 transform md:rotate-y-45 md:translate-x-4 bg-transparent p-5">
             <div className="mb-8">
               <h2 className="text-base md:text-lg font-bold mb-4 border-b  pb-2 text-gray-700">
                 Basic Info
@@ -161,7 +161,7 @@ export default function PokemonDetail() {
           </div>
 
           {/* Right Column - Stats */}
-          <div className="pokemon-panel w-full md:w-1/3 order-3 transform -rotate-y-45 md:-translate-x-4 bg-transparent p-5 ">
+          <div className="pokemon-panel w-full md:w-1/3 order-3 transform md:-rotate-y-45 md:-translate-x-4 bg-transparent p-5 ">
             <h2 className="text-base md:text-lg font-bold mb-4 border-b border-gray-200 pb-2 text-gray-700">
               Stats
             </h2>
