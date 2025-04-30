@@ -1,5 +1,6 @@
-import React from "react";
+import React, { unstable_ViewTransition as ViewTransition } from "react";
 import { useParams, Link } from "react-router";
+import { pokemonList } from "~/data";
 import type { PokemonData } from "~/types";
 
 export function meta({ params }: { params: { name: string } }) {
@@ -8,35 +9,9 @@ export function meta({ params }: { params: { name: string } }) {
 
 export default function PokemonDetail() {
   const { name } = useParams<{ name: string }>();
-  const [pokemon, setPokemon] = React.useState<PokemonData | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    async function fetchPokemonDetails() {
-      if (!name) return;
-
-      try {
-        setLoading(true);
-        const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}/`
-        );
-
-        if (!response.ok) {
-          throw new Error("Pokemon not found");
-        }
-
-        const data = await response.json();
-        setPokemon(data);
-      } catch (err: any) {
-        setError(err.message || "Failed to fetch Pokemon details");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchPokemonDetails();
-  }, [name]);
+  const [pokemon, setPokemon] = React.useState<PokemonData | null>(
+    pokemonList.find((poke) => poke.name === name) || null
+  );
 
   // Get pokemon type color
   const getTypeColor = (type: string) => {
@@ -64,33 +39,7 @@ export default function PokemonDetail() {
     return typeColors[type] || "bg-gray-300";
   };
 
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8 flex justify-center items-center h-64">
-        <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
-  if (error || !pokemon) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-red-500 text-center font-bold mb-6">
-          {error || "Pokemon not found"}
-        </div>
-        <div className="flex justify-center">
-          <Link
-            to="/"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Back to List
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const mainType = pokemon.types[0]?.type.name || "normal";
+  if (!pokemon) return null;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -108,14 +57,16 @@ export default function PokemonDetail() {
 
       <div className="bg-white overflow-hidden ">
         <div className={` p-8 flex justify-center`}>
-          <img
-            src={
-              pokemon.sprites.other["official-artwork"].front_default ||
-              pokemon.sprites.front_default
-            }
-            alt={pokemon.name}
-            className="w-48 h-48 md:w-96 md:h-96 object-contain drop-shadow-lg"
-          />
+          <ViewTransition name={`pokemon-${pokemon.name}`}>
+            <img
+              src={
+                pokemon.sprites.other["official-artwork"].front_default ||
+                pokemon.sprites.front_default
+              }
+              alt={pokemon.name}
+              className="w-48 h-48 md:w-96 md:h-96 object-contain drop-shadow-lg"
+            />
+          </ViewTransition>
         </div>
 
         <div className="p-4 md:p-6 border rounded shadow-2xl">

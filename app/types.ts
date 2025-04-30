@@ -4,7 +4,7 @@ export interface PokemonData {
   base_experience: number;
   height: number;
   is_default: boolean;
-  order: number;
+  order: number | null;
   weight: number;
   abilities: Ability2[];
   forms: Ability[];
@@ -55,13 +55,13 @@ interface Cries {
 
 export interface Sprites {
   back_default: string;
-  back_female: null;
+  back_female: null | string;
   back_shiny: string;
-  back_shiny_female: null;
+  back_shiny_female: null | string;
   front_default: string;
-  front_female: null;
+  front_female: null | string;
   front_shiny: string;
-  front_shiny_female: null;
+  front_shiny_female: null | string;
   other: Other;
   versions: Versions;
 }
@@ -98,13 +98,13 @@ interface Generationv {
 interface Blackwhite {
   animated: Showdown;
   back_default: string;
-  back_female: null;
+  back_female: null | string;
   back_shiny: string;
-  back_shiny_female: null;
+  back_shiny_female: null | string;
   front_default: string;
-  front_female: null;
+  front_female: null | string;
   front_shiny: string;
-  front_shiny_female: null;
+  front_shiny_female: null | string;
 }
 
 interface Generationiv {
@@ -128,6 +128,10 @@ interface Generationii {
 interface Crystal {
   back_default: string;
   back_shiny: string;
+  front_shiny_transparent?: string;
+  back_shiny_transparent?: string;
+  back_transparent?: string;
+  front_transparent?: string;
   front_default: string;
   front_shiny: string;
 }
@@ -140,6 +144,9 @@ interface Generationi {
 interface Redblue {
   back_default: string;
   back_gray: string;
+  front_transparent?: string;
+  back_transparent?: string;
+  back_shiny?: string;
   front_default: string;
   front_gray: string;
 }
@@ -153,13 +160,13 @@ interface Other {
 
 interface Showdown {
   back_default: string;
-  back_female: null;
+  back_female: null | string;
   back_shiny: string;
-  back_shiny_female: null;
+  back_shiny_female: null | string;
   front_default: string;
-  front_female: null;
+  front_female: string | null;
   front_shiny: string;
-  front_shiny_female: null;
+  front_shiny_female: string | null;
 }
 
 interface Officialartwork {
@@ -169,14 +176,14 @@ interface Officialartwork {
 
 interface Home {
   front_default: string;
-  front_female: null;
+  front_female: string | null;
   front_shiny: string;
-  front_shiny_female: null;
+  front_shiny_female: string | null;
 }
 
 interface Dreamworld {
   front_default: string;
-  front_female: null;
+  front_female: null | String;
 }
 
 interface Move {
@@ -188,7 +195,7 @@ interface Versiongroupdetail {
   level_learned_at: number;
   version_group: Ability;
   move_learn_method: Ability;
-  order: number;
+  order: number | null;
 }
 
 interface Helditem {

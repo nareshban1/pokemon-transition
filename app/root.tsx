@@ -6,7 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
+import { unstable_ViewTransition as ViewTransition } from "react";
 import type { Route } from "./+types/root";
 import "./app.css";
 import "./font.css";
@@ -43,7 +43,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <ViewTransition default="slow-fade">
+      <Outlet />
+    </ViewTransition>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

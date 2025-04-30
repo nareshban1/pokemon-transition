@@ -15,14 +15,14 @@ dependencies:
     specifier: ^5.1.27
     version: 5.1.27
   react:
-    specifier: ^19.1.0
-    version: 19.1.0
+    specifier: experimental
+    version: 0.0.0-experimental-0038c501-20250429
   react-dom:
-    specifier: ^19.1.0
-    version: 19.1.0(react@19.1.0)
+    specifier: experimental
+    version: 0.0.0-experimental-0038c501-20250429(react@0.0.0-experimental-0038c501-20250429)
   react-router:
     specifier: ^7.5.3
-    version: 7.5.3(react-dom@19.1.0)(react@19.1.0)
+    version: 7.5.3(react-dom@0.0.0-experimental-0038c501-20250429)(react@0.0.0-experimental-0038c501-20250429)
 
 devDependencies:
   '@react-router/dev':
@@ -712,7 +712,7 @@ packages:
       picocolors: 1.1.1
       prettier: 2.8.8
       react-refresh: 0.14.2
-      react-router: 7.5.3(react-dom@19.1.0)(react@19.1.0)
+      react-router: 7.5.3(react-dom@0.0.0-experimental-0038c501-20250429)(react@0.0.0-experimental-0038c501-20250429)
       semver: 7.7.1
       set-cookie-parser: 2.7.1
       typescript: 5.8.3
@@ -749,7 +749,7 @@ packages:
     dependencies:
       '@react-router/node': 7.5.3(react-router@7.5.3)(typescript@5.8.3)
       express: 4.21.2
-      react-router: 7.5.3(react-dom@19.1.0)(react@19.1.0)
+      react-router: 7.5.3(react-dom@0.0.0-experimental-0038c501-20250429)(react@0.0.0-experimental-0038c501-20250429)
       typescript: 5.8.3
 
   /@react-router/node@7.5.3(react-router@7.5.3)(typescript@5.8.3):
@@ -763,7 +763,7 @@ packages:
         optional: true
     dependencies:
       '@mjackson/node-fetch-server': 0.2.0
-      react-router: 7.5.3(react-dom@19.1.0)(react@19.1.0)
+      react-router: 7.5.3(react-dom@0.0.0-experimental-0038c501-20250429)(react@0.0.0-experimental-0038c501-20250429)
       source-map-support: 0.5.21
       stream-slice: 0.1.2
       typescript: 5.8.3
@@ -782,7 +782,7 @@ packages:
       express: 4.21.2
       get-port: 5.1.1
       morgan: 1.10.0
-      react-router: 7.5.3(react-dom@19.1.0)(react@19.1.0)
+      react-router: 7.5.3(react-dom@0.0.0-experimental-0038c501-20250429)(react@0.0.0-experimental-0038c501-20250429)
       source-map-support: 0.5.21
     transitivePeerDependencies:
       - supports-color
@@ -2115,20 +2115,20 @@ packages:
       iconv-lite: 0.4.24
       unpipe: 1.0.0
 
-  /react-dom@19.1.0(react@19.1.0):
-    resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
+  /react-dom@0.0.0-experimental-0038c501-20250429(react@0.0.0-experimental-0038c501-20250429):
+    resolution: {integrity: sha512-7wY2oFXBKjRa5r67u3leEyc+bF0y6F7cCmyAhkbtE90VOWIoFSxthGn1PuWdHHKWUaxkNPndXPjqgoGcWMvYKQ==}
     peerDependencies:
-      react: ^19.1.0
+      react: 0.0.0-experimental-0038c501-20250429
     dependencies:
-      react: 19.1.0
-      scheduler: 0.26.0
+      react: 0.0.0-experimental-0038c501-20250429
+      scheduler: 0.0.0-experimental-0038c501-20250429
 
   /react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react-router@7.5.3(react-dom@19.1.0)(react@19.1.0):
+  /react-router@7.5.3(react-dom@0.0.0-experimental-0038c501-20250429)(react@0.0.0-experimental-0038c501-20250429):
     resolution: {integrity: sha512-3iUDM4/fZCQ89SXlDa+Ph3MevBrozBAI655OAfWQlTm9nBR0IKlrmNwFow5lPHttbwvITZfkeeeZFP6zt3F7pw==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
@@ -2139,13 +2139,13 @@ packages:
         optional: true
     dependencies:
       cookie: 1.0.2
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
+      react: 0.0.0-experimental-0038c501-20250429
+      react-dom: 0.0.0-experimental-0038c501-20250429(react@0.0.0-experimental-0038c501-20250429)
       set-cookie-parser: 2.7.1
       turbo-stream: 2.4.0
 
-  /react@19.1.0:
-    resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
+  /react@0.0.0-experimental-0038c501-20250429:
+    resolution: {integrity: sha512-jig4F2UtQcxnLXCJQfDaWYbb3mUGNNfZsPjugJIj/63R4ISjI0LZNY68WmvQvjNmm1O1gUoZte/zeF+xKc/Wgg==}
     engines: {node: '>=0.10.0'}
 
   /readdirp@4.1.2:
@@ -2197,8 +2197,8 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /scheduler@0.26.0:
-    resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
+  /scheduler@0.0.0-experimental-0038c501-20250429:
+    resolution: {integrity: sha512-meo18Las1q5XkOW18fHs2nK7SYU/oEQ9B08aPQQBs8hoNIhhmimHjXjNIDxHSBSfnkxwaDNPV31k9TwK0dVsng==}
 
   /semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
