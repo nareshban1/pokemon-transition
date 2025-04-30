@@ -1,4 +1,5 @@
-import React, { unstable_ViewTransition as ViewTransition } from "react";
+import React, { useEffect, useState } from "react";
+import { unstable_ViewTransition as ViewTransition } from "react";
 import { useParams, Link } from "react-router";
 import { pokemonList } from "~/data";
 import type { PokemonData } from "~/types";
@@ -12,6 +13,31 @@ export default function PokemonDetail() {
   const [pokemon, setPokemon] = React.useState<PokemonData | null>(
     pokemonList.find((poke) => poke.name === name) || null
   );
+  const [statAnimationProgress, setStatAnimationProgress] = useState(0);
+
+  // Animation effect for stats
+  useEffect(() => {
+    // Reset progress when new Pokemon is loaded
+    setStatAnimationProgress(0);
+
+    // Animate from 0 to 100 over 1 second
+    const animationDuration = 1000; // ms
+    const frameDuration = 16; // ~60fps
+    const totalFrames = animationDuration / frameDuration;
+    let frame = 0;
+
+    const timer = setInterval(() => {
+      frame++;
+      const progress = Math.min((frame / totalFrames) * 100, 100);
+      setStatAnimationProgress(progress);
+
+      if (progress >= 100) {
+        clearInterval(timer);
+      }
+    }, frameDuration);
+
+    return () => clearInterval(timer);
+  }, [pokemon]);
 
   // Get pokemon type color
   const getTypeColor = (type: string) => {
@@ -41,10 +67,15 @@ export default function PokemonDetail() {
 
   if (!pokemon) return null;
 
+  // Calculate the maximum stat value for the Pokemon
+  const maxStatValue = Math.max(...pokemon.stats.map((stat) => stat.base_stat));
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row justify-between mb-6 items-center">
-        <div className="text-xl font-bold">#{pokemon.id}</div>
+        <ViewTransition name={`pokemon-${pokemon.id}`}>
+          <div className="text-xl font-bold">#{pokemon.id}</div>
+        </ViewTransition>
 
         <Link
           to="/"
@@ -57,15 +88,17 @@ export default function PokemonDetail() {
       <div className="bg-white  p-4 relative ">
         {/* Pokemon ID and Types */}
         <div className="flex items-center justify-center flex-wrap gap-4 mb-6">
-          <h1 className="text-2xl font-bold capitalize mb-4 md:mb-0">
-            {pokemon.name}
-          </h1>
+          <ViewTransition name={`pokemon-name-${pokemon.name}`}>
+            <h1 className="text-2xl font-bold capitalize mb-4 md:mb-0">
+              {pokemon.name}
+            </h1>
+          </ViewTransition>
         </div>
 
         {/* Main content with simplified 3D layout */}
         <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center perspective-1000">
           {/* Left Column - Basic Info & Abilities */}
-          <div className="pokemon-panel w-full md:w-1/3 order-2 md:order-1 transform rotate-y-45 md:translate-x-4 bg-white p-5 rounded-lg shadow-md border border-gray-200">
+          <div className="pokemon-panel w-full md:w-1/3 order-2 md:order-1 transform rotate-y-45 md:translate-x-4 bg-transparent p-5">
             <div className="mb-8">
               <h2 className="text-base md:text-lg font-bold mb-4 border-b  pb-2 text-gray-700">
                 Basic Info
@@ -95,22 +128,24 @@ export default function PokemonDetail() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-wrap gap-2 mt-4">
-              {pokemon.types.map((type) => (
-                <span
-                  key={type.type.name}
-                  className={`${getTypeColor(
-                    type.type.name
-                  )} text-white text-[0.6rem] font-bold px-3 py-1 rounded-full uppercase`}
-                >
-                  {type.type.name}
-                </span>
-              ))}
-            </div>
+            <ViewTransition name={`pokemon-stats-${pokemon.name}`}>
+              <div className="flex flex-wrap gap-2 mt-4">
+                {pokemon.types.map((type) => (
+                  <span
+                    key={type.type.name}
+                    className={`${getTypeColor(
+                      type.type.name
+                    )} text-white text-[0.6rem] font-bold px-3 py-1 rounded-full uppercase`}
+                  >
+                    {type.type.name}
+                  </span>
+                ))}
+              </div>
+            </ViewTransition>
           </div>
 
           {/* Center Column - Pokemon Image */}
-          <div className="pokemon-image-container w-full md:w-1/3 order-1 md:order-2 flex flex-col items-center justify-center z-10">
+          <div className="pokemon-image-container w-full md:w-2/3 order-1 md:order-2 flex flex-col items-center justify-center z-10">
             <div className="relative p-4">
               <ViewTransition name={`pokemon-${pokemon.name}`}>
                 <img
@@ -119,14 +154,14 @@ export default function PokemonDetail() {
                     pokemon.sprites.front_default
                   }
                   alt={pokemon.name}
-                  className="w-64 h-64 md:w-[500px] md:h-[500px] object-contain"
+                  className="w-[1000px] h-auto object-fill"
                 />
               </ViewTransition>
             </div>
           </div>
 
           {/* Right Column - Stats */}
-          <div className="pokemon-panel w-full md:w-1/3 order-3 transform -rotate-y-45 md:-translate-x-4 bg-white p-5 rounded-lg shadow-md border border-gray-200">
+          <div className="pokemon-panel w-full md:w-1/3 order-3 transform -rotate-y-45 md:-translate-x-4 bg-transparent p-5 ">
             <h2 className="text-base md:text-lg font-bold mb-4 border-b border-gray-200 pb-2 text-gray-700">
               Stats
             </h2>
@@ -139,13 +174,16 @@ export default function PokemonDetail() {
                     </span>
                     <span className="text-sm">{stat.base_stat}</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded h-5 overflow-hidden">
+                  <div className="w-full bg-gray-200 rounded-xs h-5 overflow-hidden">
                     <div
-                      className="bg-blue-500 h-5"
+                      className={`${getTypeColor(
+                        pokemon.types[0].type.name
+                      )} h-5 transition-all duration-300 ease-out`}
                       style={{
                         width: `${Math.min(
                           100,
-                          (stat.base_stat / 255) * 100
+                          (stat.base_stat / maxStatValue) *
+                            statAnimationProgress
                         )}%`,
                       }}
                     ></div>

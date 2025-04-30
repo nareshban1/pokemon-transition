@@ -53,13 +53,17 @@ function PokemonList() {
                 >
                   {/* Pokemon name with Pokeball icon */}
                   <div className="flex items-center justify-between p-4 bg-white bg-opacity-80">
-                    <h2 className="text-sm font-bold capitalize">
-                      {poke.name}
-                    </h2>
+                    <ViewTransition name={`pokemon-name-${poke.name}`}>
+                      <h2 className="text-sm font-bold capitalize">
+                        {poke.name}
+                      </h2>
+                    </ViewTransition>
                     <div className="flex items-center">
-                      <span className="text-xs font-semibold text-gray-700">
-                        #{poke.id}
-                      </span>
+                      <ViewTransition name={`pokemon-${poke.id}`}>
+                        <span className="text-xs font-semibold text-gray-700">
+                          #{poke.id}
+                        </span>
+                      </ViewTransition>
                       <div className="ml-2 w-5 h-5 rounded-full bg-red-600 border-2 border-white flex items-center justify-center">
                         <div className="w-1 h-1 bg-white rounded-full"></div>
                       </div>
@@ -95,18 +99,20 @@ function PokemonList() {
 
                   {/* Pokemon types */}
                   <div className="px-4 py-3 bg-white bg-opacity-90">
-                    <div className="flex flex-wrap gap-2 mb-2">
-                      {poke.types.map((type) => (
-                        <span
-                          key={type.type.name}
-                          className={`${getTypeColor(
-                            type.type.name
-                          )} text-white text-[0.5rem] font-bold px-2 py-1 rounded-full uppercase transition-all duration-300 hover:shadow-md`}
-                        >
-                          {type.type.name}
-                        </span>
-                      ))}
-                    </div>
+                    <ViewTransition name={`pokemon-stats-${poke.name}`}>
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {poke.types.map((type) => (
+                          <span
+                            key={type.type.name}
+                            className={`${getTypeColor(
+                              type.type.name
+                            )} text-white text-[0.5rem] font-bold px-2 py-1 rounded-full uppercase transition-all duration-300 hover:shadow-md`}
+                          >
+                            {type.type.name}
+                          </span>
+                        ))}
+                      </div>
+                    </ViewTransition>
 
                     {/* Pokemon stats preview */}
                     <div className="grid grid-cols-2 gap-2 text-[0.6rem] text-gray-700">
